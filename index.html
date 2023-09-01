@@ -1,44 +1,43 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | JSlib</title>
-  </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    
+<html>
+<head>
+    <title>Gyroscope Example</title>
+</head>
+<body>
     <div id="gyroValues">
-      <p>Alpha: <span id="alphaValue">0</span></p>
-      <p>Beta: <span id="betaValue">0</span></p>
-      <p>Gamma: <span id="gammaValue">0</span></p>
-  </div>
-  <button onclick="onClick()">Request Gyroscope Permission</button>
-  <script>
-      function handleOrientation(event) {
-          document.getElementById('alphaValue').textContent = event.alpha;
-          document.getElementById('betaValue').textContent = event.beta;
-          document.getElementById('gammaValue').textContent = event.gamma;
-      }
-
-      function requestPermission() {
-        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-            DeviceOrientationEvent.requestPermission().then(permissionState => {
-                if (permissionState === 'granted') {
-                    window.addEventListener('deviceorientation', handleOrientation);
-                    alert('Permission granted. Gyroscope data will be shown.');
-                } else if (permissionState === 'denied') {
-                    alert('Permission denied. Gyroscope data cannot be accessed.');
-                } else if (permissionState === 'prompt') {
-                    alert('Permission request dismissed. Gyroscope data will not be shown.');
-                }
-            }).catch(console.error);
-        } else {
-            console.log('Permission denied');
+        <p>Alpha: <span id="alphaValue">0</span></p>
+        <p>Beta: <span id="betaValue">0</span></p>
+        <p>Gamma: <span id="gammaValue">0</span></p>
+    </div>
+    <script>
+        function handleOrientation(event) {
+            document.getElementById('alphaValue').textContent = event.alpha;
+            document.getElementById('betaValue').textContent = event.beta;
+            document.getElementById('gammaValue').textContent = event.gamma;
         }
-    }
 
-    requestPermission();
-  </script>
-    
-  </body>
+        function requestPermission() {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission().then(permissionState => {
+                    if (permissionState === 'granted') {
+                        window.addEventListener('deviceorientation', handleOrientation);
+                        
+                    } else if (permissionState === 'denied') {
+                        alert('Permission denied. Gyroscope data cannot be accessed.');
+                    } else if (permissionState === 'prompt') {
+                        alert('Permission request dismissed. Gyroscope data will not be shown.');
+                    }
+                }).catch(console.error);
+            } else {
+                console.log('Permission denied');
+            }
+        }
+
+        // Solicitar permiso al cargar la página
+        requestPermission();
+    </script>
+</body>
 </html>
+
+
+
