@@ -1,44 +1,40 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Gyroscope Example</title>
-</head>
-<body>
-    <div id="gyroValues">
-        <p>Alpha: <span id="alphaValue">0</span></p>
-        <p>Beta: <span id="betaValue">0</span></p>
-        <p>Gamma: <span id="gammaValue">0</span></p>
-    </div>
-    <button onclick="requestPermission()">Solicitar Permiso</button> <!-- Agrega el botón -->
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | JSlib</title>
+  </head>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <canvas id="unity-canvas" width=960 height=600 tabindex="-1" style="width: 960px; height: 600px; background: #231F20"></canvas>
+    <script src="Build/webgl6.loader.js"></script>
     <script>
-        function handleOrientation(event) {
-            document.getElementById('alphaValue').textContent = event.alpha;
-            document.getElementById('betaValue').textContent = event.beta;
-            document.getElementById('gammaValue').textContent = event.gamma;
-        }
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
 
-        function requestPermission() {
-            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission().then(permissionState => {
-                    if (permissionState === 'granted') {
-                        window.addEventListener('deviceorientation', handleOrientation);
-                         alert('Permission granted.');
-                    } else if (permissionState === 'denied') {
-                        alert('Permission denied. Gyroscope data cannot be accessed.');
-                    } else if (permissionState === 'prompt') {
-                        alert('Permission request dismissed. Gyroscope data will not be shown.');
-                    }
-                }).catch(console.error);
-            } else {
-                console.log('Permission denied');
-            }
-        }
+        var canvas = document.querySelector("#unity-canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.position = "fixed";
 
-        // Solicitar permiso al cargar la página
-        requestPermission();
+        document.body.style.textAlign = "left";
+      }
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/webgl6.data.gz",
+        frameworkUrl: "Build/webgl6.framework.js.gz",
+        codeUrl: "Build/webgl6.wasm.gz",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "JSlib",
+        productVersion: "0.1.0",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
     </script>
-</body>
+  </body>
 </html>
-
-
-
