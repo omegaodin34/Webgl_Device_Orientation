@@ -9,6 +9,7 @@
         <p>Beta: <span id="betaValue">0</span></p>
         <p>Gamma: <span id="gammaValue">0</span></p>
     </div>
+    <button onclick="requestPermission()">Solicitar Permiso</button> <!-- Agrega el botón -->
     <script>
         function handleOrientation(event) {
             document.getElementById('alphaValue').textContent = event.alpha;
