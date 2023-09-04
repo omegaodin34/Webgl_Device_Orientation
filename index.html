@@ -7,40 +7,7 @@
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=960 height=600 tabindex="-1" style="width: 960px; height: 600px; background: #231F20"></canvas>
-    <div id="gyroValues">
-      <p>Alpha: <span id="alphaValue">0</span></p>
-      <p>Beta: <span id="betaValue">0</span></p>
-      <p>Gamma: <span id="gammaValue">0</span></p>
-  </div>
-  <button onclick="requestPermission()">Solicitar Permiso</button> <!-- Agrega el botón -->
-  <script>
-      function handleOrientation(event) {
-          document.getElementById('alphaValue').textContent = event.alpha;
-          document.getElementById('betaValue').textContent = event.beta;
-          document.getElementById('gammaValue').textContent = event.gamma;
-      }
-
-      function requestPermission() {
-          if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-              DeviceOrientationEvent.requestPermission().then(permissionState => {
-                  if (permissionState === 'granted') {
-                      window.addEventListener('deviceorientation', handleOrientation);
-                       alert('Permission granted.');
-                  } else if (permissionState === 'denied') {
-                      alert('Permission denied. Gyroscope data cannot be accessed.');
-                  } else if (permissionState === 'prompt') {
-                      alert('Permission request dismissed. Gyroscope data will not be shown.');
-                  }
-              }).catch(console.error);
-          } else {
-              console.log('Permission denied');
-          }
-      }
-
-      // Solicitar permiso al cargar la página
-      requestPermission();
-  </script>
-    <script src="Build/webgl7.loader.js"></script>
+    <script src="Build/webgl.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -58,9 +25,9 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/webgl7.data",
-        frameworkUrl: "Build/webgl7.framework.js",
-        codeUrl: "Build/webgl7.wasm",
+        dataUrl: "Build/webgl.data",
+        frameworkUrl: "Build/webgl.framework.js",
+        codeUrl: "Build/webgl.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "JSlib",
@@ -69,6 +36,5 @@
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
     </script>
-    
   </body>
 </html>
