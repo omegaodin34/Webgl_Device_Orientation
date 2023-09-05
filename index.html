@@ -7,7 +7,7 @@
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=960 height=600 tabindex="-1" style="width: 960px; height: 600px; background: #231F20"></canvas>
-    <script src="Build/webgl.loader.js"></script>
+    <script src="Build/Webgl_Device_Orientation.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -25,9 +25,9 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/webgl.data",
-        frameworkUrl: "Build/webgl.framework.js",
-        codeUrl: "Build/webgl.wasm",
+        dataUrl: "Build/Webgl_Device_Orientation.data",
+        frameworkUrl: "Build/Webgl_Device_Orientation.framework.js",
+        codeUrl: "Build/Webgl_Device_Orientation.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "JSlib",
@@ -36,5 +36,17 @@
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
     </script>
+    <script type="text/javascript" language="javascript">
+      <!--
+      //initializing the WebPlayer
+      var u = new UnityObject2();
+      u.initPlugin(jQuery("#unityPlayer")[0], "Example.unity3d");
+      
+      function SaySomethingToUnity()
+      {
+          u.getUnity().SendMessage("MyObject", "ActualizarValores", "Hello, from a web page!","B","G");
+      }
+      -->
+      </script>
   </body>
 </html>
